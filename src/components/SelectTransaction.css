@@ -1,0 +1,22 @@
+.SelectTransactionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size:10vw;
+}
+.center
+{
+  margin:auto;
+}
+
+.transactionButtons
+{
+  width:75vw;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.walletAddress
+{
+  font-size:2vw;
+}

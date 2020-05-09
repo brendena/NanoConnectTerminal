@@ -1,0 +1,8 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+ion-button {
+  width:100vw;
+}
+
