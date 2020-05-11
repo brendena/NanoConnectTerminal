@@ -16,13 +16,15 @@ class XtermManager
     container:HTMLElement;
     userLine:string = "";
     currPos:number = 0;
+    cbNewLine:(newLine:string)=> void;
     
-    constructor(container:HTMLElement)
+    constructor(container:HTMLElement, callback:(newLine:string)=> void)
     {
         this.container = container;
         this.term.open(this.container);
         this.prompt();
         this.term.onKey(this.handleKeyEvents.bind(this));
+        this.cbNewLine = callback;
     }
 
     prompt()
@@ -30,21 +32,32 @@ class XtermManager
         this.term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
     }
 
+    write(message:string)
+    {
+        this.term.write(message);
+    }
+
     handleKeyEvents(key)
     {
+        /*
         console.log(this)
         console.log("pos");
         console.log(this.currPos);
         console.log("userLine")
         console.log(this.userLine)
+        console.log(key);
+        */
         switch(key.domEvent.keyCode)
         {
 
             case(13): // \r
-                console.log("got here")
-                this.term.write("\r\n");
-                this.userLine = "";
-                this.currPos = 0;
+                if(this.userLine.length != 0)
+                {
+                    this.term.write("\r\n");
+                    this.cbNewLine(this.userLine);
+                    this.userLine = "";
+                    this.currPos = 0;
+                }
                 break;
             case(8): // backspace
                 if(this.userLine.length > 0){
@@ -103,7 +116,6 @@ class XtermManager
                 this.userLine += key.key;
                 this.term.write(key.key);
         }
-        console.log(key);
         
     }
 }
