@@ -29,7 +29,8 @@
     "react-scripts": "3.4.1",
     "typescript": "3.8.3",
     "xterm": "^4.5.0",
-    "yargs": "^15.3.1"
+    "yargs": "^15.3.1",
+    "yargs_browser": "0.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

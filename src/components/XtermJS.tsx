@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Terminal } from 'xterm';
 import XtermManager from '../objects/XtermManager'
+import yargsBrowser from 'yargs_browser/dist/index'
 
 import '../../node_modules/xterm/css/xterm.css';
 import './XtermJS.css';
