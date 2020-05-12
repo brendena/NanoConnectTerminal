@@ -3,17 +3,27 @@ import { Terminal } from 'xterm';
 import XtermManager from '../objects/XtermManager'
 import yargsBrowser from 'yargs_browser/dist/index'
 
+
 import '../../node_modules/xterm/css/xterm.css';
 import './XtermJS.css';
 
-class fs 
-{
-    readFileSync(directory:string,local:string){
-        console.log("tested")
-    };
-}
-var yargs =  require('yargs')
+var BrowserFS = require("browserfs")
+var fs = BrowserFS.BFSRequire('fs');
+BrowserFS.configure({ fs: "LocalStorage" }, function (e) {
+  console.log(e);
+  console.log("e is nothing")
+});
 
+var yargs =  require('yargs')
+/*
+var yargs =  require('yargs')
+var BrowserFS = require("browserfs")
+var fs = BrowserFS.BFSRequire('fs');
+BrowserFS.configure({ fs: "LocalStorage" }, function (e) {
+  console.log(e);
+  console.log("e is nothing")
+});
+*/
 
 //https://medium.com/codingtown/xterm-js-terminal-2b19ccd2a52
 //light wrapper for xterm
@@ -35,6 +45,7 @@ const XtermJS: React.FC = () => {
             setTimeout(function(){ 
                 var xtermManger = new XtermManager(container.current,(newLine:string)=>{
                     console.log(newLine);
+                    //*
                     var argv = yargs.locale("en")
                     
                     .command("test","asdfasdf",()=>{
@@ -43,6 +54,7 @@ const XtermJS: React.FC = () => {
                     parse(['help'],(_err, argv, output)=>{
                         console.log(output);
                     });
+                    //*/
                 });
             }, 
             500);

@@ -18,22 +18,25 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
+    "browserfs": "^1.4.3",
     "immer": "^6.0.3",
     "ionicons": "^5.0.0",
     "loglevel": "^1.6.8",
     "react": "^16.13.0",
+    "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "stack": "^0.1.0",
     "typescript": "3.8.3",
     "xterm": "^4.5.0",
     "yargs": "^15.3.1",
     "yargs_browser": "0.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-app-rewired start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -55,7 +58,8 @@
   },
   "devDependencies": {
     "@capacitor/cli": "2.0.1",
-    "@types/react-redux": "^7.1.7"
+    "@types/react-redux": "^7.1.7",
+    "react-dev-utils": "^10.2.1"
   },
   "description": "An Ionic project"
 }
