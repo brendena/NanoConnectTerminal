@@ -19,8 +19,7 @@ var yargs = require('yargs')
 var NanoConnectClient = require('nanoconnect/clientMessagesIndex')
 var executeNanoTerminal = require('nanoconnect/clientTerminal')
 
-var nanoClient = new NanoConnectClient({port:6881});
-nanoClient.connect();
+var nanoClient = new NanoConnectClient("magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=ws://localhost:8000",{port:6881});
 
 
 //https://medium.com/codingtown/xterm-js-terminal-2b19ccd2a52
@@ -61,6 +60,30 @@ const XtermJS: React.FC = () => {
                             resolve(returnString);
                         });
                     });
+                xtermManger.changeKeyEventLock(true);
+
+                xtermManger.write("\r\nConnecting");
+
+                var loadingAnimationFunc = ()=>{
+                    xtermManger.write(".");
+                    setTimeout(()=>{
+                        if(!nanoClient.connectedToServer())
+                        {
+                            loadingAnimationFunc();
+                        }
+                    },200);
+                };
+                
+                loadingAnimationFunc();
+
+
+
+                nanoClient.connect().then(function(){
+                    xtermManger.changeKeyEventLock(false);
+                    xtermManger.write("\r\n");
+                    xtermManger.prompt();
+                });
+
             },
                 500);
         }

@@ -19,6 +19,7 @@ class XtermManager
     promptString:string;
     userLine:string = "";
     currPos:number = 0;
+    locked:Boolean = false;
     cbNewLine:(newLine:string)=> any;
     
     constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> any)
@@ -49,6 +50,10 @@ class XtermManager
     {
         this.term.write(this.promptString);
     }
+    changeKeyEventLock(lockState:Boolean)
+    {
+        this.locked = lockState;
+    }
 
     write(message:string)
     {
@@ -57,6 +62,9 @@ class XtermManager
 
     handleKeyEvents(key)
     {
+        if(this.locked){
+            return;
+        }
         /*
         console.log(this)
         console.log("pos");
