@@ -16,6 +16,11 @@ BrowserFS.configure({ fs: "LocalStorage" }, function (e) {
 });
 
 var yargs = require('yargs')
+var NanoConnectClient = require('nanoconnect/clientMessagesIndex')
+var executeNanoTerminal = require('nanoconnect/clientTerminal')
+
+var nanoClient = new NanoConnectClient({port:6881});
+nanoClient.connect();
 
 
 //https://medium.com/codingtown/xterm-js-terminal-2b19ccd2a52
@@ -41,29 +46,20 @@ const XtermJS: React.FC = () => {
                                                                                          //38;2;r;g;b
                 var xtermManger = new XtermManager(container.current,'\x1B[1;3;38;2;0;0;255mNanoConnect@root\x1B[0m:/ ',
 
-                    (newLine: string) => {
-                        console.log(newLine);
-                        //*
-                        
-                        var returnOutput = "";
-                        var argv = yargs.locale("en")
-                        
-                        argv.command("block_count", "Reports the number of blocks in the ledger", () => {
-                                console.log("command - test")
-                                returnOutput = "test\r\n";
-                            }).help().
-                            parse(newLine, (_err, argv, output) => {
-                                if (output != "") {
-                                    //output = output.replace('/\n/g','\r\n');
-                                    output = output.split("\n").join("\r\n");
-                                    output += "\r\n";
-                                    returnOutput = output;
-                                }
+                    async (newLine: string) => {
+                       
+                        return  new  Promise(async (resolve, reject) => {
+                            
 
-                                console.log(output)
-                            });
-                        //*/
-                        return returnOutput;
+                            if(!nanoClient.connectedToServer())
+                            {
+                                await nanoClient.connect();
+                            }
+                            var returnString = await executeNanoTerminal(nanoClient,newLine);
+                            console.log("got back" + returnString);
+                            
+                            resolve(returnString);
+                        });
                     });
             },
                 500);

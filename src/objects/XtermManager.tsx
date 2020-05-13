@@ -19,9 +19,9 @@ class XtermManager
     promptString:string;
     userLine:string = "";
     currPos:number = 0;
-    cbNewLine:(newLine:string)=> string;
+    cbNewLine:(newLine:string)=> any;
     
-    constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> string)
+    constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> any)
     {
         this.container = container;
         
@@ -72,12 +72,19 @@ class XtermManager
                 if(this.userLine.length != 0)
                 {
                     this.term.write("\r\n");
-                    var display:string = this.cbNewLine(this.userLine);
-                    console.log("new line - " + display);
-                    this.write(display);
-                    this.userLine = "";
-                    this.currPos = 0;
-                    this.prompt();
+                    var display
+                    this.cbNewLine(this.userLine).then((results)=>{
+                        console.log("callback")
+                        display = results;
+                        console.log("new line - " + display);
+                        this.write(display);
+                        this.userLine = "";
+                        this.currPos = 0;
+                        this.prompt();
+                    });
+
+                    
+
                 }
                 break;
             case(8): // backspace
