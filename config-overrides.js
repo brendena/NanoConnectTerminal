@@ -17,6 +17,6 @@ module.exports = function override(config, env) {
     config.node.process = false;
     config.node.Buffer = false;
     //config.module.noParse =  /browserfs\.js/
-    
+
     return config;
 }
