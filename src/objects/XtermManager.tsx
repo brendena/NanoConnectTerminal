@@ -35,7 +35,7 @@ class XtermManager
         
         this.term.loadAddon(this.fitAddon);
         this.term.open(this.container);
-        
+        this.fitAddon.fit();
 
 
 

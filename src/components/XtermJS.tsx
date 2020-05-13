@@ -48,12 +48,15 @@ const XtermJS: React.FC = () => {
                         var returnOutput = "";
                         var argv = yargs.locale("en")
                         
-                        argv.command("test", "asdfasdf", () => {
+                        argv.command("block_count", "Reports the number of blocks in the ledger", () => {
                                 console.log("command - test")
                                 returnOutput = "test\r\n";
                             }).help().
                             parse(newLine, (_err, argv, output) => {
                                 if (output != "") {
+                                    //output = output.replace('/\n/g','\r\n');
+                                    output = output.split("\n").join("\r\n");
+                                    output += "\r\n";
                                     returnOutput = output;
                                 }
 
