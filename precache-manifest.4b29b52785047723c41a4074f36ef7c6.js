@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f68d08b8b4d7a2e6a9ed6fe70c50c421",
+    "revision": "88161867899f6f6e576727e2b326f476",
     "url": "/NanoConnectTerminal/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NanoConnectTerminal/static/css/49.bde53007.chunk.css"
   },
   {
-    "revision": "4dd889876c2f3d41b50f",
+    "revision": "d36c4577f197cb4ff01f",
     "url": "/NanoConnectTerminal/static/css/main.22b154be.chunk.css"
   },
   {
@@ -264,8 +264,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/NanoConnectTerminal/static/js/99.446d4f63.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4dd889876c2f3d41b50f",
-    "url": "/NanoConnectTerminal/static/js/main.702a2f52.chunk.js"
+    "revision": "d36c4577f197cb4ff01f",
+    "url": "/NanoConnectTerminal/static/js/main.de1e8030.chunk.js"
   },
   {
     "revision": "2848166e4694f2f04e3b",
