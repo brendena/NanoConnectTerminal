@@ -1,4 +1,5 @@
 import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
 
 
 //https://medium.com/codingtown/xterm-js-terminal-2b19ccd2a52
@@ -13,15 +14,32 @@ class XtermManager
     term = new Terminal({
         cursorBlink:true
     });
+    fitAddon = new FitAddon();
     container:HTMLElement;
+    promptString:string;
     userLine:string = "";
     currPos:number = 0;
-    cbNewLine:(newLine:string)=> void;
+    cbNewLine:(newLine:string)=> string;
     
-    constructor(container:HTMLElement, callback:(newLine:string)=> void)
+    constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> string)
     {
         this.container = container;
+        
+        window.addEventListener('resize',
+            (ev)=>{
+                console.log("resize");
+                this.fitAddon.fit();
+            }
+        ) ;
+
+        
+        this.term.loadAddon(this.fitAddon);
         this.term.open(this.container);
+        
+
+
+
+        this.promptString = promptString; 
         this.prompt();
         this.term.onKey(this.handleKeyEvents.bind(this));
         this.cbNewLine = callback;
@@ -29,7 +47,7 @@ class XtermManager
 
     prompt()
     {
-        this.term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+        this.term.write(this.promptString);
     }
 
     write(message:string)
@@ -54,9 +72,12 @@ class XtermManager
                 if(this.userLine.length != 0)
                 {
                     this.term.write("\r\n");
-                    this.cbNewLine(this.userLine);
+                    var display:string = this.cbNewLine(this.userLine);
+                    console.log("new line - " + display);
+                    this.write(display);
                     this.userLine = "";
                     this.currPos = 0;
+                    this.prompt();
                 }
                 break;
             case(8): // backspace
