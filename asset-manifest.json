@@ -13,8 +13,8 @@
     "static/js/5.f7c94356.chunk.js": "/NanoConnectTerminal/static/js/5.f7c94356.chunk.js",
     "static/js/5.f7c94356.chunk.js.map": "/NanoConnectTerminal/static/js/5.f7c94356.chunk.js.map",
     "main.css": "/NanoConnectTerminal/static/css/main.22b154be.chunk.css",
-    "main.js": "/NanoConnectTerminal/static/js/main.a6fbb981.chunk.js",
-    "main.js.map": "/NanoConnectTerminal/static/js/main.a6fbb981.chunk.js.map",
+    "main.js": "/NanoConnectTerminal/static/js/main.702a2f52.chunk.js",
+    "main.js.map": "/NanoConnectTerminal/static/js/main.702a2f52.chunk.js.map",
     "runtime-main.js": "/NanoConnectTerminal/static/js/runtime-main.b0a5a726.js",
     "runtime-main.js.map": "/NanoConnectTerminal/static/js/runtime-main.b0a5a726.js.map",
     "stencil-ion-avatar_3-ios-entry-js.js": "/NanoConnectTerminal/static/js/stencil-ion-avatar_3-ios-entry-js.67e550a1.chunk.js",
@@ -203,7 +203,7 @@
     "static/js/99.446d4f63.chunk.js": "/NanoConnectTerminal/static/js/99.446d4f63.chunk.js",
     "static/js/99.446d4f63.chunk.js.map": "/NanoConnectTerminal/static/js/99.446d4f63.chunk.js.map",
     "index.html": "/NanoConnectTerminal/index.html",
-    "precache-manifest.051efa635adcf2e4867b003dced02a42.js": "/NanoConnectTerminal/precache-manifest.051efa635adcf2e4867b003dced02a42.js",
+    "precache-manifest.23accc3c5396a2545a97e602f6dd718e.js": "/NanoConnectTerminal/precache-manifest.23accc3c5396a2545a97e602f6dd718e.js",
     "service-worker.js": "/NanoConnectTerminal/service-worker.js",
     "static/css/49.bde53007.chunk.css.map": "/NanoConnectTerminal/static/css/49.bde53007.chunk.css.map",
     "static/css/main.22b154be.chunk.css.map": "/NanoConnectTerminal/static/css/main.22b154be.chunk.css.map",
@@ -220,6 +220,6 @@
     "static/css/49.bde53007.chunk.css",
     "static/js/49.93c7e092.chunk.js",
     "static/css/main.22b154be.chunk.css",
-    "static/js/main.a6fbb981.chunk.js"
+    "static/js/main.702a2f52.chunk.js"
   ]
 }
