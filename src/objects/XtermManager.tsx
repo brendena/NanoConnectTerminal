@@ -22,8 +22,6 @@ class XtermManager
     locked:Boolean = false;
     history:string[] = [];
     historySelectedIndex:number = -1;
-    copyString:string = ""  //
-    ctrlCommand:boolean = false; //if true wait till relesae
     cbNewLine:(newLine:string)=> any;
     
     constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> any)
@@ -50,7 +48,15 @@ class XtermManager
         this.term.attachCustomKeyEventHandler(this.customKeyEventHandler.bind(this))
 
         //supposidly it can work on past data
-        //this.term.onData((data, encoding) => {console.log("-------");console.log(data); console.log(encoding)});
+        this.term.onData((data, encoding) => 
+        {
+            //if length isn't one and char code not esc then it's probably a copy paste
+            if(data.length != 1 && data.charCodeAt(0) != 27)
+            {
+                this.spliceUserWord(this.currPos,data,false);
+            }
+            
+        });
         
         this.cbNewLine = callback;
     }
@@ -131,26 +137,20 @@ class XtermManager
 
     customKeyEventHandler(event:KeyboardEvent)
     {
+        
+        //*
         if(event.ctrlKey)
         {
-            if(this.ctrlCommand == false)
+            if(event.keyCode == 67) //c
             {
-                if(event.keyCode == 67) //c
-                {
-                    //document.execCommand('copy');
-                    this.copyString = this.term.getSelection();
-                    console.log('copy succeeded', this.copyString);
-                    return false;
-                }
-                if(event.keyCode == 86) //v
-                {
-                    this.ctrlCommand = true;
-                    this.spliceUserWord(this.currPos,this.copyString,false);
-                    return false;
-                }
+                return false;
             }
-            this.ctrlCommand = false;
+            if(event.keyCode == 86) //v
+            {
+                return false;
+            }
         }
+        //*/
         return true;
     }
     handleKeyEvents(key)
@@ -158,14 +158,7 @@ class XtermManager
         if(this.locked){
             return;
         }
-        /*
-        console.log(this)
-        console.log("pos");
-        console.log(this.currPos);
-        console.log("userLine")
-        console.log(this.userLine)
-        console.log(key);
-        */
+        
         switch(key.domEvent.keyCode)
         {
 
@@ -262,30 +255,29 @@ class XtermManager
                 }
                 break;
             default:
-                if(this.currPos >= this.userLine.length)
+                var charValue = key.key.charCodeAt(0);
+                if(charValue > 31 && charValue < 127 )
                 {
-                    this.currPos++;
+                    if(this.currPos >= this.userLine.length)
+                    {
+                        this.currPos++;
+                    }
+                    //changing something in the middle of the terminal
+                    if(this.currPos < this.userLine.length)
+                    {
+                        this.spliceUserWord(this.currPos,key.key,true);
+                    }
+                    //else just add it to the end
+                    else
+                    {
+                        this.userLine += key.key;
+                        this.term.write(key.key);
+                    }
+    
                 }
-                //changing something in the middle of the terminal
-                if(this.currPos < this.userLine.length)
-                {
-                    this.spliceUserWord(this.currPos,key.key,true);
-                }
-                //else just add it to the end
-                else
-                {
-                    this.userLine += key.key;
-                    this.term.write(key.key);
-                }
-
-
         }
         
     }
 }
 
-/*
- 
-
-*/
 export default XtermManager;
