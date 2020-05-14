@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/NanoConnectTerminal/precache-manifest.4b29b52785047723c41a4074f36ef7c6.js"
+  "/NanoConnectTerminal/precache-manifest.115c1abb93851321e685971a1295460e.js"
 );
 
 self.addEventListener('message', (event) => {
