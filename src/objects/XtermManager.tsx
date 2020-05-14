@@ -14,14 +14,16 @@ class XtermManager
     term = new Terminal({
         cursorBlink:true
     });
-    fitAddon = new FitAddon();
-    container:HTMLElement;
+    fitAddon = new FitAddon(); //xterm make it resize
+    container:HTMLElement;    
     promptString:string;
     userLine:string = "";
     currPos:number = 0;
     locked:Boolean = false;
     history:string[] = [];
     historySelectedIndex:number = -1;
+    copyString:string = ""  //
+    ctrlCommand:boolean = false; //if true wait till relesae
     cbNewLine:(newLine:string)=> any;
     
     constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> any)
@@ -45,9 +47,12 @@ class XtermManager
         this.promptString = promptString; 
         this.prompt();
         this.term.onKey(this.handleKeyEvents.bind(this));
-        this.cbNewLine = callback;
+        this.term.attachCustomKeyEventHandler(this.customKeyEventHandler.bind(this))
 
-        this.term.attachCustomKeyEventHandler(this.customKeyEventHandler)
+        //supposidly it can work on past data
+        //this.term.onData((data, encoding) => {console.log("-------");console.log(data); console.log(encoding)});
+        
+        this.cbNewLine = callback;
     }
 
     prompt()
@@ -66,10 +71,34 @@ class XtermManager
         this.term.write(message);
     }
 
+    moveToPos(pos:number)
+    {
+        if(pos > -1 && pos < this.userLine.length)
+        {
+            var terminalMessage = "";
+            if(pos < this.currPos)
+            {
+                for(var i =0; i < (this.currPos - pos); i++)
+                {
+                    terminalMessage = terminalMessage.concat("\b");
+                } 
+            }
+            else
+            {
+                for(var i =0; i < (pos - this.currPos); i++)
+                {
+                //    output = output.concat("\b \b");
+                } 
+            }
+            this.write(terminalMessage);
+            this.currPos = pos;
+        }
+    }
+
     setUserLine(newUserLine:string)
     {
         var output = ""
-        for(var i =0; i < this.userLine.length; i++)
+        for(var i =0; i < this.currPos; i++)
         {
             output = output.concat("\b \b");
         }
@@ -85,24 +114,42 @@ class XtermManager
         this.currPos = 0;
         this.historySelectedIndex = this.history.length;
     }
+
+    spliceUserWord(pos:number,string:string,stayInPlace:boolean)
+    {
+        var start = this.userLine.slice(0,this.currPos);
+        var end = this.userLine.slice(this.currPos,this.userLine.length);
+        this.userLine = start + string + end;
+        var tmpCurrentPossition = this.currPos;
+        this.setUserLine(this.userLine);
+        if(stayInPlace)
+        {
+            this.moveToPos(tmpCurrentPossition + 1);
+        }
+    }
+
+
     customKeyEventHandler(event:KeyboardEvent)
     {
-        console.log(event);
         if(event.ctrlKey)
         {
-            if(event.keyCode == 67) //c
+            if(this.ctrlCommand == false)
             {
-                console.log("copy")
-                //copy and past
+                if(event.keyCode == 67) //c
+                {
+                    //document.execCommand('copy');
+                    this.copyString = this.term.getSelection();
+                    console.log('copy succeeded', this.copyString);
+                    return false;
+                }
+                if(event.keyCode == 86) //v
+                {
+                    this.ctrlCommand = true;
+                    this.spliceUserWord(this.currPos,this.copyString,false);
+                    return false;
+                }
             }
-            if(event.keyCode == 86) //v
-            {
-                console.log("paste")
-                var promise = navigator.clipboard;
-
-                console.log(promise);
-
-            }
+            this.ctrlCommand = false;
         }
         return true;
     }
@@ -219,8 +266,19 @@ class XtermManager
                 {
                     this.currPos++;
                 }
-                this.userLine += key.key;
-                this.term.write(key.key);
+                //changing something in the middle of the terminal
+                if(this.currPos < this.userLine.length)
+                {
+                    this.spliceUserWord(this.currPos,key.key,true);
+                }
+                //else just add it to the end
+                else
+                {
+                    this.userLine += key.key;
+                    this.term.write(key.key);
+                }
+
+
         }
         
     }

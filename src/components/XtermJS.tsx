@@ -44,9 +44,10 @@ const XtermJS: React.FC = () => {
         if (timeThrough == 1) {
             console.log('adding manager')
 
-            setTimeout(function () {
+            setTimeout(function () {                                                     //4a90e2 - nano logo
+                                                                                         //\x1B[1;3;38;2;0;0;255m - just blue
                                                                                          //38;2;r;g;b
-                var xtermManger = new XtermManager(container.current,'\x1B[1;3;38;2;0;0;255mNanoConnect@root\x1B[0m:/ ',
+                var xtermManger = new XtermManager(container.current,'\x1B[1;3;38;2;144;169;226mNanoConnect@root\x1B[0m:/ ',
 
                     async (newLine: string) => {
                        
