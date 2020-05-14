@@ -1,8 +1,8 @@
 {
   "name": "nano_connect_terminal",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "private": true,
-  "homepage": "https://brendena.github.io/NanoConnectTerminal",
+  "homepage": "https://trynanorpc.dev",
   "dependencies": {
     "@capacitor/android": "^2.0.1",
     "@capacitor/core": "2.0.1",
@@ -23,7 +23,7 @@
     "immer": "^6.0.3",
     "ionicons": "^5.0.0",
     "loglevel": "^1.6.8",
-    "nanoconnect": "0.0.3",
+    "nanoconnect": "0.0.5",
     "react": "^16.13.0",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.0",

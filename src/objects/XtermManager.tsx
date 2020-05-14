@@ -20,6 +20,8 @@ class XtermManager
     userLine:string = "";
     currPos:number = 0;
     locked:Boolean = false;
+    history:string[] = [];
+    historySelectedIndex:number = -1;
     cbNewLine:(newLine:string)=> any;
     
     constructor(container:HTMLElement,promptString:string, callback:(newLine:string)=> any)
@@ -44,6 +46,8 @@ class XtermManager
         this.prompt();
         this.term.onKey(this.handleKeyEvents.bind(this));
         this.cbNewLine = callback;
+
+        this.term.attachCustomKeyEventHandler(this.customKeyEventHandler)
     }
 
     prompt()
@@ -55,11 +59,53 @@ class XtermManager
         this.locked = lockState;
     }
 
+
+
     write(message:string)
     {
         this.term.write(message);
     }
 
+    setUserLine(newUserLine:string)
+    {
+        var output = ""
+        for(var i =0; i < this.userLine.length; i++)
+        {
+            output = output.concat("\b \b");
+        }
+        output = output.concat(newUserLine);
+        this.userLine = newUserLine;
+        this.currPos = newUserLine.length;
+        this.write(output);
+    }
+
+    resetUserLine()
+    {
+        this.userLine = "";
+        this.currPos = 0;
+        this.historySelectedIndex = this.history.length;
+    }
+    customKeyEventHandler(event:KeyboardEvent)
+    {
+        console.log(event);
+        if(event.ctrlKey)
+        {
+            if(event.keyCode == 67) //c
+            {
+                console.log("copy")
+                //copy and past
+            }
+            if(event.keyCode == 86) //v
+            {
+                console.log("paste")
+                var promise = navigator.clipboard;
+
+                console.log(promise);
+
+            }
+        }
+        return true;
+    }
     handleKeyEvents(key)
     {
         if(this.locked){
@@ -86,8 +132,16 @@ class XtermManager
                         display = results;
                         console.log("new line - " + display);
                         this.write(display);
-                        this.userLine = "";
-                        this.currPos = 0;
+                        this.history.push(this.userLine);
+                        this.resetUserLine();
+                        this.prompt();
+
+                        
+                    }).catch((catchError)=>{
+                        console.log(catchError.toString())
+                        this.write(catchError.toString());
+                        this.write("\r\n");
+                        this.resetUserLine();
                         this.prompt();
                     });
 
@@ -116,6 +170,8 @@ class XtermManager
                         output = end;
                         this.currPos--;
                     }
+
+
                     output = output.concat(" ")
                     let outputLength = output.length
                     for(let i =0; i < outputLength;i++){
@@ -125,8 +181,22 @@ class XtermManager
                 }
                 
                 break;
-            case(38): //up 
+            case(38): //up
+                this.historySelectedIndex-=2; //for the offset going up one bellow
             case(40): //down
+                this.historySelectedIndex++;
+                //cycle through all the options
+                if(this.historySelectedIndex <= -1){
+                    this.historySelectedIndex = 0;
+                } 
+                if(this.historySelectedIndex >= this.history.length)
+                {
+                    this.historySelectedIndex = this.history.length -1;
+                }
+                if(this.history.length > 0)
+                {
+                    this.setUserLine(this.history[this.historySelectedIndex]);
+                }
                 break;
             case(39): //right   
                 console.log(this.currPos)

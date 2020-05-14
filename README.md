@@ -1,1 +1,1 @@
-[website](https://brendena.github.io/NanoConnectTerminal/)
+[website](https://trynanorpc.dev/)

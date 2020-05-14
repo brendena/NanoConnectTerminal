@@ -12,15 +12,18 @@ var BrowserFS = require("browserfs")
 var fs = BrowserFS.BFSRequire('fs');
 BrowserFS.configure({ fs: "LocalStorage" }, function (e) {
     console.log(e);
-    console.log("e is nothing")
+    console.log("e is nothing ")
 });
 
 var yargs = require('yargs')
 var NanoConnectClient = require('nanoconnect/clientMessagesIndex')
 var executeNanoTerminal = require('nanoconnect/clientTerminal')
 
-var nanoClient = new NanoConnectClient("magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=ws://localhost:8000",{port:6881});
-
+var nanoClient = new NanoConnectClient(
+                        //"magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=ws://localhost:8000",
+                        "magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com",
+                        {port:6881});
+nanoClient.connect();
 
 //https://medium.com/codingtown/xterm-js-terminal-2b19ccd2a52
 //light wrapper for xterm
@@ -49,15 +52,20 @@ const XtermJS: React.FC = () => {
                        
                         return  new  Promise(async (resolve, reject) => {
                             
-
-                            if(!nanoClient.connectedToServer())
-                            {
-                                await nanoClient.connect();
+                            try{
+                                if(!nanoClient.connectedToServer())
+                                {
+                                    await nanoClient.waitForConnection();
+                                }
+                                var returnString = await executeNanoTerminal(nanoClient,newLine);
+                                console.log("got back" + returnString);
+                                
+                                resolve(returnString);
                             }
-                            var returnString = await executeNanoTerminal(nanoClient,newLine);
-                            console.log("got back" + returnString);
-                            
-                            resolve(returnString);
+                            catch(err){
+                                reject(err)
+                            }
+
                         });
                     });
                 xtermManger.changeKeyEventLock(true);
@@ -78,9 +86,10 @@ const XtermJS: React.FC = () => {
 
 
 
-                nanoClient.connect().then(function(){
+                nanoClient.waitForConnection().then(function(){
                     xtermManger.changeKeyEventLock(false);
                     xtermManger.write("\r\n");
+                    xtermManger.write("type - help for list of commands\r\n");
                     xtermManger.prompt();
                 });
 
