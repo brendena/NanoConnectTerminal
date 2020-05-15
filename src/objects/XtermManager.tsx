@@ -141,11 +141,9 @@ class XtermManager
         //*
         if(event.ctrlKey)
         {
-            if(event.keyCode == 67) //c
-            {
-                return false;
-            }
-            if(event.keyCode == 86) //v
+            if(event.keyCode == 67 || //c
+               event.keyCode == 86 || //v
+               event.keyCode == 82)   //r 
             {
                 return false;
             }

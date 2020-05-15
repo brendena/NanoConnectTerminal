@@ -21,7 +21,7 @@ var executeNanoTerminal = require('nanoconnect/clientTerminal')
 
 var nanoClient = new NanoConnectClient(
                         //"magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=ws://localhost:8000",
-                        "magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com",
+                        "magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=wss%3A%2F%2Ftracker.btorrent.xyz",
                         {port:6881});
 nanoClient.connect();
 
@@ -99,6 +99,7 @@ const XtermJS: React.FC = () => {
                     xtermManger.changeKeyEventLock(false);
                     xtermManger.write("\r\n");
                     xtermManger.write("type - help for list of commands\r\n");
+                    xtermManger.write("type - getting_started if your new to NANO \r\n");
                     xtermManger.prompt();
                 });
 
