@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Terminal } from 'xterm';
 import XtermManager from '../objects/XtermManager'
 import yargsBrowser from 'yargs_browser/dist/index'
-
+import TextArtDrawer from '../objects/TextArtDrawer'
 
 
 import '../../node_modules/xterm/css/xterm.css';
@@ -44,7 +44,10 @@ const XtermJS: React.FC = () => {
         if (timeThrough == 1) {
             console.log('adding manager')
 
-            setTimeout(function () {                                                     //4a90e2 - nano logo
+            setTimeout(async function () {
+                
+                
+                                                                                        //4a90e2 - nano logo
                                                                                          //\x1B[1;3;38;2;0;0;255m - just blue
                                                                                          //38;2;r;g;b
                 var xtermManger = new XtermManager(container.current,'\x1B[1;3;38;2;144;169;226mNanoConnect@root\x1B[0m:/ ',
@@ -70,6 +73,11 @@ const XtermJS: React.FC = () => {
                         });
                     });
                 xtermManger.changeKeyEventLock(true);
+
+
+                var artDrawer =  new TextArtDrawer((text)=>{xtermManger.write(text)});
+                await artDrawer.draw();
+
 
                 xtermManger.write("\r\nConnecting");
 
