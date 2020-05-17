@@ -6,3 +6,15 @@ ion-button {
   width:100vw;
 }
 
+#githubButton{
+  float: right;
+  height: 56px;
+  width: 40px;
+  font-size: 30px;
+  padding: 0;
+  background: #4a90e2;
+}
+
+#githubButton:hover{
+  background: #3dc2ff;
+}
