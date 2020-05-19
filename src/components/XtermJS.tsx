@@ -19,10 +19,7 @@ var yargs = require('yargs')
 var NanoConnectClient = require('nanoconnect/clientMessagesIndex')
 var executeNanoTerminal = require('nanoconnect/clientTerminal')
 
-var nanoClient = new NanoConnectClient(
-                        //"magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=ws://localhost:8000",
-                        "magnet:?xt=urn:btih:dd59ca795c689b00713f9f2bb15379b32bb13cbc&dn=DataSheBlow.png&tr=wss%3A%2F%2Ftracker.btorrent.xyz",
-                        {port:6881});
+var nanoClient = new NanoConnectClient({port:6881});
 nanoClient.connect();
 
 //https://medium.com/codingtown/xterm-js-terminal-2b19ccd2a52
@@ -40,9 +37,7 @@ const XtermJS: React.FC = () => {
     useEffect(() => {
         // Every time the component has been re-rendered,
         // the counter is incremented
-        console.log("---------------")
         if (timeThrough == 1) {
-            console.log('adding manager')
 
             setTimeout(async function () {
                 

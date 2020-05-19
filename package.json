@@ -1,6 +1,6 @@
 {
   "name": "nano_connect_terminal",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": true,
   "homepage": "https://trynanorpc.dev",
   "dependencies": {
