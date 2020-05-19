@@ -99,8 +99,9 @@ const XtermJS: React.FC = () => {
                     xtermManger.changeKeyEventLock(false);
                     xtermManger.write("\r\n");
                     xtermManger.write("copy (ctrl + c) paste (ctrl + p) \r\n");
-                    xtermManger.write("type - help for list of commands\r\n");
-                    xtermManger.write("type - getting_started if your new to NANO \r\n");
+                    xtermManger.write("type - help (for list of commands)\r\n");
+                    xtermManger.write("type - getting_started (if your new to NANO) \r\n");
+                    xtermManger.write("type - [command] help  (for more information)\r\n");
                     xtermManger.prompt();
                 });
 

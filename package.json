@@ -1,6 +1,6 @@
 {
   "name": "nano_connect_terminal",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "private": true,
   "homepage": "https://trynanorpc.dev",
   "dependencies": {
@@ -26,7 +26,7 @@
     "immer": "^6.0.3",
     "ionicons": "^5.0.0",
     "loglevel": "^1.6.8",
-    "nanoconnect": "0.0.13",
+    "nanoconnect": "0.0.15",
     "react": "^16.13.0",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.0",
