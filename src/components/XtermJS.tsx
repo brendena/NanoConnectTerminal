@@ -11,8 +11,6 @@ import './XtermJS.css';
 var BrowserFS = require("browserfs")
 var fs = BrowserFS.BFSRequire('fs');
 BrowserFS.configure({ fs: "LocalStorage" }, function (e) {
-    console.log(e);
-    console.log("e is nothing ")
 });
 
 var yargs = require('yargs')
@@ -57,7 +55,6 @@ const XtermJS: React.FC = () => {
                                     await nanoClient.waitForConnection();
                                 }
                                 var returnString = await executeNanoTerminal(nanoClient,newLine);
-                                console.log("got back" + returnString);
                                 
                                 resolve(returnString);
                             }

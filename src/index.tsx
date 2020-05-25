@@ -10,6 +10,7 @@ import debug from 'debug'
 
 //debug.enable('NCIndexInfo*,NCIndexError*,bittorrent-tracker:websocket-tracker*,simple-peer*,bittorrent-tracker:websocket-tracker*,bittorrent-tracker:client*')
 //log.setDefaultLevel("trace")
+debug.disable();
 
 ReactDOM.render(
     <Provider store={store}>

@@ -12,18 +12,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 
 const HomePage: React.FC = () => {
-
-
-  const counter = useSelector((state: any) => state.propsPage.counter);
-
-  console.log(counter);
   const dispatch = useDispatch()
-
-
-  /*
-  <IonButton color="primary" onClick={() => { dispatch({ type: "INCREASE_COUNTER" })}}>Primady { counter }</IonButton>
-  <IonButton routerLink="/tab2">got to tab2 </IonButton>
-  */
 
 
   return (

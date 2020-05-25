@@ -30,7 +30,6 @@ class XtermManager
         
         window.addEventListener('resize',
             (ev)=>{
-                console.log("resize");
                 this.fitAddon.fit();
             }
         ) ;
@@ -166,9 +165,7 @@ class XtermManager
                     this.term.write("\r\n");
                     var display
                     this.cbNewLine(this.userLine).then((results)=>{
-                        console.log("callback")
                         display = results;
-                        console.log("new line - " + display);
                         this.write(display);
                         this.history.push(this.userLine);
                         this.resetUserLine();
@@ -195,7 +192,6 @@ class XtermManager
                     {
                         this.userLine = this.userLine.slice(1,this.userLine.length);
                         output = this.userLine;
-                        console.log(this.userLine);
                     }
                     else 
                     {
@@ -237,8 +233,6 @@ class XtermManager
                 }
                 break;
             case(39): //right   
-                console.log(this.currPos)
-                console.log(this.userLine.length)
                 if(this.currPos < this.userLine.length)
                 {
                     this.currPos++;
