@@ -1,7 +1,7 @@
 # [trynanorpc.dev](https://trynanorpc.dev/)
 
 
-![How Nano Connect works](./images/logo.svg)
+![How Nano Connect works](./images/logo.png)
 
 
 Terminal application for [NanoConnect](https://github.com/brendena/NanoConnect)
