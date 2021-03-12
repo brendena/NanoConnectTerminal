@@ -67,7 +67,7 @@
     "@capacitor/cli": "2.0.1",
     "@types/react-redux": "^7.1.9",
     "gh-pages": "^2.2.0",
-    "react-dev-utils": "^10.2.1"
+    "react-dev-utils": "^11.0.4"
   },
   "description": "An Ionic project"
 }
