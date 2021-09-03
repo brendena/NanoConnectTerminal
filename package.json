@@ -23,7 +23,7 @@
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5",
     "browserfs": "^1.4.3",
-    "immer": "^6.0.8",
+    "immer": "^9.0.6",
     "ionicons": "^5.0.0",
     "loglevel": "^1.6.8",
     "nanoconnect": "0.0.18",
